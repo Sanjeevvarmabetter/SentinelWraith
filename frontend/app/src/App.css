@@ -1,0 +1,292 @@
+/* General body styling */
+body {
+  background-color: #1a202c;
+  color: #f7fafc;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Container for centered form */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Gradient background for the form container */
+.bg-gradient {
+  background: linear-gradient(to right, #1a202c, #2d3748);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+/* Form Title */
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Form Fields */
+input[type="text"], input[type="number"], textarea, input[type="file"] {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  border: 1px solid #4a5568;
+  background-color: #2d3748;
+  color: #f7fafc;
+}
+
+/* Button styling */
+button {
+  background-color: #4c51bf;
+  color: white;
+  font-size: 1rem;
+  padding: 0.75rem 2rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #718096;
+}
+
+button:hover {
+  background-color: #434190;
+}
+
+/* Form label */
+label {
+  color: #e2e8f0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Toast styling */
+.Toastify__toast-container {
+  font-family: 'Arial', sans-serif;
+  padding: 0.5rem;
+}
+
+.Toastify__toast {
+  background-color: #2b6cb0;
+  color: white;
+}
+
+.Toastify__toast--error {
+  background-color: #e53e3e;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+}
+
+/* Wallet info styling */
+.wallet-info {
+  margin-top: 70px;
+  padding: 10px;
+  background-color: #000000; /* Light background for visibility */
+  border-radius: 1px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* RegisterEvidence specific styles */
+
+/* Container for the form */
+.form-container {
+  background-color: #1a202c;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+/* Heading styling */
+.form-heading {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #f7fafc;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Flexbox for form content */
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Styling for input fields */
+.input-field, .file-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 2px solid #4a5568;
+  border-radius: 8px;
+  background-color: #2d3748;
+  color: #f7fafc;
+}
+
+.input-field:focus, .file-input:focus {
+  border-color: #4c51bf;
+  outline: none;
+}
+
+/* Button styling */
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  color: white;
+  background-color: #4c51bf;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #434190;
+}
+
+.submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Styling for the file input */
+.file-input {
+  padding: 10px;
+  border: 2px solid #4a5568;
+  background-color: #2d3748;
+}
+
+/* Add some small spacing for each form group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+
+/* General container styling */
+.retrieve-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #1a202c;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styling */
+.heading {
+  font-size: 2rem;
+  color: #f7fafc;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* Form container for inputs and button */
+.form-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Input field styling */
+.input-field {
+  width: 250px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #4a5568;
+  background-color: #2d3748;
+  color: #f7fafc;
+}
+
+/* Submit button styling */
+.submit-button {
+  background-color: #4c51bf;
+  color: white;
+  font-size: 1rem;
+  padding: 0.75rem 2rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:disabled {
+  background-color: #718096;
+  cursor: not-allowed;
+}
+
+.submit-button:hover {
+  background-color: #434190;
+}
+
+/* Loading text styling */
+.loading-text {
+  text-align: center;
+  font-size: 1rem;
+  color: #e53e3e;
+  font-weight: 600;
+}
+
+/* Metadata section */
+.metadata-container {
+  margin-top: 2rem;
+  background-color: #2d3748;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.metadata-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #f7fafc;
+  margin-bottom: 1rem;
+}
+
+.metadata-container p {
+  color: #e2e8f0;
+  font-size: 1rem;
+}
+
+.image-container {
+  margin-top: 1rem;
+}
+
+.metadata-image {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .retrieve-container {
+    padding: 1.5rem;
+  }
+
+  .form-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .input-field {
+    width: 80%;
+    margin-bottom: 1rem;
+  }
+}
