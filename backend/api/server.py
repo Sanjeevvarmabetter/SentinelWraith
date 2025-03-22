@@ -8,7 +8,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 # Load the trained model (joblib format)
-MODEL_PATH = "model/bagging_voting_ensemble.joblib"
+MODEL_PATH = "bagging_voting_ensemble.joblib"
 
 try:
     model = joblib.load(MODEL_PATH)
