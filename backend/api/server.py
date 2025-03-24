@@ -7,7 +7,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
-# Load the trained model (joblib format)
+# Load the trained model d(joblib format)
 MODEL_PATH = "bagging_voting_ensemble.joblib"
 
 try:
