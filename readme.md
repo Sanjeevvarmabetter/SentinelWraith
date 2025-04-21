@@ -6,6 +6,7 @@ This project presents a **machine learning-based malware detection system** usin
 
 ## 📁 Project Structure
 
+```
 ├── backend/
 │   ├── app.py                # Flask server
 │   ├── bagging_voting_ensemble.joblib  # Trained ensemble model
@@ -41,12 +42,13 @@ This project presents a **machine learning-based malware detection system** usin
 
 Install Python dependencies via:
 
+```bash
 pip install -r requirements.txt
-
+```
 
 Sample `requirements.txt`:
 
-
+```
 flask
 flask-cors
 pefile
@@ -57,12 +59,13 @@ catboost
 scikit-learn
 pandas
 numpy
+```
 
 Frontend (React):
 
-
+```bash
 npm install
-
+```
 
 ---
 
