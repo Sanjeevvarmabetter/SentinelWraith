@@ -141,7 +141,7 @@ The stacked architecture helps reduce overfitting and improve generalization.
 
 ## 👨‍💻 Author
 
-**Santosh Vardhan**
+**Santosh Vardhan**  
 Cybersecurity Engineer
 
 
