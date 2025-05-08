@@ -1,4 +1,11 @@
-# 🛡️ Malware Detection using Advanced Stacked Ensemble
+<p align="center">
+  <img src="/assets/logo.jpg" alt="Sentinel Wraith Logo" width="900"/>
+</p>
+
+
+
+# 🛡️ Sentinel Wraith: AI Based Malware Detection Tool
+
 
 This project presents a **machine learning-based malware detection system** using an advanced stacked ensemble model. It extracts features from PE (Portable Executable) files and uses multiple classifiers (XGBoost, LightGBM, CatBoost, and XGBoost-DART) to predict if a given file is malicious. The model is deployed using a Flask API backend and a React-based frontend.
 
@@ -21,8 +28,7 @@ This project presents a **machine learning-based malware detection system** usin
 │   └── advanced_stacked_ensemble.py  # Model training script
 │
 └── README.md
-
----
+```
 
 ## 🚀 Features
 
@@ -135,11 +141,15 @@ The stacked architecture helps reduce overfitting and improve generalization.
 
 ## 👨‍💻 Author
 
-**Sanjeev Varma**  
-Blockchain & Security Enthusiast  
-
 **Santosh Vardhan**
 Cybersecurity Engineer
+GitHub: [@Santosh Vardan](https://github.com/Sanjeevvarmabetter)  
+
+
+**Sanjeev Varma**  
+Blockchain & Security Enthusiast  
+GitHub: [@santhosh vardan](https://github.com/darkrider00)  
+
 
 
 ---
