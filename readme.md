@@ -143,12 +143,10 @@ The stacked architecture helps reduce overfitting and improve generalization.
 
 **Santosh Vardhan**
 Cybersecurity Engineer
-GitHub: [@Santosh Vardan](https://github.com/Sanjeevvarmabetter)  
 
 
 **Sanjeev Varma**  
 Blockchain & Security Enthusiast  
-GitHub: [@santhosh vardan](https://github.com/darkrider00)  
 
 
 
