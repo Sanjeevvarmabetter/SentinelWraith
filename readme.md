@@ -1,157 +1,217 @@
 <p align="center">
-  <img src="/assets/logo.jpg" alt="Sentinel Wraith Logo" width="900"/>
+  <img src="/assets/logo.jpg" alt="Sentinel Wraith Logo" width="850" style="border-radius: 12px;"/>
 </p>
 
+<h1 align="center">🛡️ Sentinel Wraith: AI-Powered PE Malware Detection Platform</h1>
 
+<p align="center">
+  <strong>Next-Generation Static Threat Intelligence via Stacked Machine Learning Ensembles</strong>
+</p>
 
-# 🛡️ Sentinel Wraith: AI Based Malware Detection Tool
-
-
-This project presents a **machine learning-based malware detection system** using an advanced stacked ensemble model. It extracts features from PE (Portable Executable) files and uses multiple classifiers (XGBoost, LightGBM, CatBoost, and XGBoost-DART) to predict if a given file is malicious. The model is deployed using a Flask API backend and a React-based frontend.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.9+-blue.svg?style=flat-square&logo=python&logoColor=white" alt="Python Version"/>
+  <img src="https://img.shields.io/badge/Flask-REST%20API-lightgrey.svg?style=flat-square&logo=flask" alt="Flask"/>
+  <img src="https://img.shields.io/badge/React-19.0-61DAFB.svg?style=flat-square&logo=react&logoColor=black" alt="React 19"/>
+  <img src="https://img.shields.io/badge/TailwindCSS-v3-38B2AC.svg?style=flat-square&logo=tailwind-css&logoColor=white" alt="Tailwind"/>
+  <img src="https://img.shields.io/badge/ML%20Ensemble-XGBoost%20%7C%20LightGBM%20%7C%20RF-orange.svg?style=flat-square" alt="ML Ensemble"/>
+  <img src="https://img.shields.io/badge/License-MIT-green.svg?style=flat-square" alt="License"/>
+</p>
 
 ---
 
-## 📁 Project Structure
+## 📌 Executive Overview
+
+**Sentinel Wraith** is an autonomous malware detection and static analysis framework for Windows Portable Executable (`.exe`, `.dll`) binaries. 
+
+Unlike signature-based antiviruses that fail against polymorphic 0-days, or dynamic sandboxes that take minutes to run and risk host contamination, **Sentinel Wraith executes deep static dissection in under 250 milliseconds**:
+- **Zero Host Risk**: Operates strictly via static byte parsing with zero binary execution.
+- **Shannon Section Entropy**: Detects obfuscated, encrypted, and packed shellcode (UPX, Themida, ASPack).
+- **MITRE ATT&CK Mapping**: Identifies dangerous dual-use APIs for process injection, anti-debugging, and C2 communication.
+- **Ensemble Consensus**: Aggregates predictions across Decision Trees, Random Forests, XGBoost, and LightGBM with explainable confidence scoring.
+- **Recruiter 1-Click Sandbox**: Built-in test binaries enabling instant live testing on any OS without requiring a local `.exe`.
+
+---
+
+## 🏗️ Architecture & Pipeline
+
+```mermaid
+graph TD
+    User([User / Recruiter]) -->|Uploads .exe or Selects Demo Binary| UI["React 19 Frontend (Tailwind + Lucide)"]
+    UI -->|POST /predict or /analyze-sample| API["Flask REST Backend (server.py)"]
+    
+    subgraph Static Analysis Engine
+        API --> Hasher["Cryptographic Hasher (MD5 / SHA1 / SHA256)"]
+        API --> PEParser["pefile Header Inspector (DOS, NT, Optional)"]
+        PEParser --> EntropyCalc["Shannon Entropy Calculator (0.0 to 8.0)"]
+        PEParser --> ImportAuditor["IAT Auditor (MITRE ATT&CK API Mapping)"]
+    end
+
+    subgraph AI Ensemble Layer
+        PEParser --> FeatureVector["Feature Extractor (PE Vector)"]
+        FeatureVector --> DT["Decision Tree (Bagging)"]
+        FeatureVector --> RF["Random Forest (Bagging)"]
+        FeatureVector --> XGB["XGBoost Classifier (Bagging)"]
+        FeatureVector --> LGBM["LightGBM Classifier (Bagging)"]
+        
+        DT --> Voting["Hard Voting Consensus Engine"]
+        RF --> Voting
+        XGB --> Voting
+        LGBM --> Voting
+    end
+
+    StaticAnalysisEngine --> ThreatEngine["Composite Threat Scorer (0 - 100)"]
+    Voting --> ThreatEngine
+    ThreatEngine --> Telemetry["Detailed Threat Telemetry Dashboard"]
+    Telemetry --> UI
+```
+
+---
+
+## 🚀 Key Features
+
+### 1. 🧠 Multi-Model Bagging & Voting Ensemble
+* Combines predictions from **DecisionTree**, **RandomForest**, **XGBoost**, and **LightGBM**.
+* Employs **Bootstrap Aggregating (Bagging)** on each estimator to minimize variance and combat overfitting.
+* Out-of-fold probability distribution aggregation via **Stacked Generalization** with a LightGBM meta-learner.
+
+### 2. 🔬 Deep PE Binary Dissection
+* **Shannon Entropy Analysis**: Computes mathematical entropy ($H(X) = -\sum p(x) \log_2 p(x)$) per section (`.text`, `.rdata`, `.data`, `.rsrc`). Entropy exceeding 7.0 automatically flags packed payloads.
+* **Import Address Table (IAT) Inspection**: Matches functions against a catalog of MITRE ATT&CK malware techniques:
+  * *Process Injection*: `VirtualAllocEx`, `WriteProcessMemory`, `CreateRemoteThread`, `QueueUserAPC`.
+  * *Anti-Analysis / Evasion*: `IsDebuggerPresent`, `CheckRemoteDebuggerPresent`, `OutputDebugStringA`.
+  * *Privilege Escalation*: `AdjustTokenPrivileges`, `OpenProcessToken`.
+  * *Command & Control*: `URLDownloadToFileA`, `InternetOpenA`, `HttpSendRequestA`.
+
+### 3. 🎯 Recruiter 1-Click Interactive Sandbox
+* Pre-loaded with curated sample binaries (`Palo Alto WildFire PE`, `7-Zip Setup`, `Greenshot Installer`, `System Diagnostics`).
+* Recruiters on macOS, Linux, or mobile can evaluate live static analysis with one click.
+
+---
+
+## 📁 Repository Structure
 
 ```
 ├── backend/
-│   ├── app.py                # Flask server
-│   ├── bagging_voting_ensemble.joblib  # Trained ensemble model
-│   └── uploads/              # Temp folder for uploaded files
+│   ├── api/
+│   │   ├── server.py                     # High-performance Flask REST API & static analysis engine
+│   │   ├── bagging_voting_ensemble.joblib # Trained 4-model ensemble artifact
+│   │   └── requirements.txt              # Backend dependencies
+│   ├── model/
+│   │   ├── advanced_stacked_ensemble.joblib # Stacked generalization model
+│   │   ├── model.pkl & scaler.pkl        # Baseline Random Forest & Scaler
+│   ├── test/                             # Benchmark binaries (WildFire, 7-Zip, Greenshot)
+│   └── training/
+│       ├── malware_dataset.csv           # BODMAS & VirusShare training dataset (19,613 records)
+│       └── train_model.py                # Standalone training pipeline
 │
-├── frontend/
-│   ├── public/
-│   └── src/
-│       └── App.js            # React code to send files for prediction
+├── frontend/app/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Header.jsx                # Futuristic navigation & live engine status indicator
+│   │   │   ├── MalwareUpload.jsx         # Telemetry dashboard, entropy table, & 1-click test runner
+│   │   │   ├── Cards.jsx                 # Interactive 4-phase workflow breakdown
+│   │   │   ├── About.jsx                 # Research documentation & architecture whitepaper
+│   │   │   └── Footer.jsx                # Engineering credits & license
+│   │   ├── pages/
+│   │   │   └── Home.jsx                  # Hero landing page, stats matrix, & demo triggers
+│   │   └── index.css                     # Cyber grid & glassmorphism styling
+│   └── package.json
 │
-├── ensemble/
-│   └── advanced_stacked_ensemble.py  # Model training script
-│
+├── model/
+│   └── Malware_detection_with_machine_learning.ipynb # Complete research notebook (EDA, SMOTE, PCA, Stacking)
 └── README.md
 ```
 
-## 🚀 Features
-
-- 🔬 **Feature Extraction**: Extracts 7 critical fields from PE file headers.
-- 🤖 **Advanced Ensemble Model**: Combines predictions from:
-  - XGBoost
-  - LightGBM
-  - CatBoost
-  - XGBoost-DART
-- 🧠 **Meta Learner**: Uses LightGBM as a meta-classifier.
-- 🌐 **Web Deployment**: Flask backend and React frontend for file upload and real-time malware prediction.
-- 🔐 **Cross-Origin Support**: Configured with Flask-CORS for seamless frontend-backend integration.
-
 ---
 
-## 📦 Dependencies
+## ⚡ Quickstart Guide
 
-Install Python dependencies via:
+### 1. Prerequisites
+- **Python 3.9+**
+- **Node.js 18+** & npm
+- macOS users: `brew install libomp` (for OpenMP runtime used by XGBoost)
 
+### 2. Backend Setup
 ```bash
-pip install -r requirements.txt
-```
-
-Sample `requirements.txt`:
-
-```
-flask
-flask-cors
-pefile
-joblib
-xgboost
-lightgbm
-catboost
-scikit-learn
-pandas
-numpy
-```
-
-Frontend (React):
-
-```bash
-npm install
-```
-
----
-
-## 🛠️ Usage
-
-### 1. 🧠 Train the Ensemble Model
-
-Navigate to the `ensemble/` directory and run:
-
-
-python advanced_stacked_ensemble.py
-
-
-Make sure your training dataset (`X_train`, `y_train`) is loaded inside the script.
-
-### 2. ⚙️ Start the Backend (Flask API)
-
-```bash
+# Navigate to backend and create virtual environment
 cd backend
-python app.py
+python3 -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install flask flask-cors pefile joblib scikit-learn numpy xgboost lightgbm
+
+# Start the Flask API server
+python api/server.py
 ```
+> The API server will listen on `http://localhost:5000`.
 
-The Flask server will run on `http://localhost:5000`.
-
-### 3. 🌍 Start the Frontend (React App)
-
+### 3. Frontend Setup
 ```bash
-cd frontend
+# In a new terminal, navigate to the frontend app
+cd frontend/app
+
+# Install dependencies
+npm install --legacy-peer-deps
+
+# Start the React development server
 npm start
 ```
-
-This will open the React app on `http://localhost:3000`.
+> The web interface will open automatically on `http://localhost:3000`.
 
 ---
 
-## 📤 API Endpoint
+## 📡 REST API Reference
 
-**POST** `/predict`
-
-| Field | Type | Description |
-|-------|------|-------------|
-| file  | File | PE (.exe) file to analyze |
-
-**Response**
-
+### `GET /health`
+Returns active model state, version, and loaded estimators.
 ```json
 {
-  "prediction": 1   // 1: Malware, 0: Benign
+  "status": "online",
+  "service": "Sentinel Wraith Malware Detection Engine",
+  "version": "2.1.0",
+  "active_models": [
+    "DecisionTreeClassifier (Bagging)",
+    "RandomForestClassifier (Bagging)",
+    "XGBClassifier (Bagging)",
+    "LGBMClassifier (Bagging)"
+  ]
 }
 ```
 
+### `GET /samples`
+Returns the catalog of pre-loaded demonstration binaries.
+
+### `POST /analyze-sample`
+Runs full static analysis on a pre-loaded sample binary by ID.
+```json
+// Request
+{ "sample_id": "wildfire-test" }
+
+// Response includes threat score, hashes, section entropy, ML votes, and API mappings
+```
+
+### `POST /compare`
+Generates a side-by-side forensic benchmark diff between any two binary samples.
+```json
+// Request
+{ "sample_a": "7zip-installer", "sample_b": "wildfire-test" }
+
+// Returns side-by-side comparison of threat scores, W^X compliance, entropy, and ML consensus
+```
+
+### `POST /predict` or `POST /analyze`
+Uploads a user-provided PE executable (or JSON sample payload) for immediate analysis.
+* **Body**: `multipart/form-data` with `file: <binary.exe>` or JSON `{ "sample_id": "<id>" }`
+
 ---
 
-## 📈 Model Evaluation
-
-The ensemble model is evaluated using cross-validation on:
-
-- Accuracy
-- Precision
-- Recall
-- F1-score
-- ROC AUC
-
-The stacked architecture helps reduce overfitting and improve generalization.
-
----
-
-## 👨‍💻 Author
-
-**Santosh Vardhan**  
-Cybersecurity Engineer
-
-
-**Sanjeev Varma**  
-Blockchain & Security Enthusiast  
-
-
+## 👨‍💻 Project Author
+ 
+* **Sanjeev Varma** — *Lead Cybersecurity & Machine Learning Engineer*
 
 ---
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Distributed under the MIT License. See [LICENSE](LICENSE) for more information.

@@ -1,2 +1,2 @@
-const s = "santosh is malware";
-console.log(s):
+const testStatus = "Sentinel Wraith Static Analysis Active";
+console.log(testStatus);
